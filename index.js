@@ -20,6 +20,7 @@ app.use(cors({
 
 app.get('/', (req, res) => {
   console.log('GET request received at root');
+  console.log(dbConfig);
   res.send('Server OK, running at PORT: ' + port);
 })
 
