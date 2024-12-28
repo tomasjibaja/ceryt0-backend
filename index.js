@@ -1,12 +1,33 @@
-let ScoreMarkModel = require('./models');
 const mongoose = require('mongoose');
 const dbConfig = require('./database');
-require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
 
+dotenv.config();
+const MONGO_URL = process.env.MONGO_URL;
 const port = process.env.PORT || 3000;
+
+let ScoreMarkModel = require('./models');
+
+class Database {
+  constructor() {
+    this._connect();
+  }
+
+  _connect() {
+    mongoose 
+      .connect(MONGO_URL)
+      .then(() => {
+        console.log('Database connection successful');
+      })
+      .catch((err) => {
+        console.error('Database connection error');
+        console.log(err)
+      });
+    }
+}
 
 app.listen(port, () => console.log('Node server started succesfully at port: ' + port));
 
