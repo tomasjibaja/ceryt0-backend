@@ -10,23 +10,15 @@ const port = process.env.PORT || 3000;
 
 let ScoreMarkModel = require('./models');
 
-class Database {
-  constructor() {
-    this._connect();
-  }
-
-  _connect() {
-    mongoose 
-      .connect(MONGO_URL)
-      .then(() => {
-        console.log('Database connection successful');
-      })
-      .catch((err) => {
-        console.error('Database connection error');
-        console.log(err)
-      });
-    }
-}
+mongoose 
+  .connect(MONGO_URL)
+  .then(() => {
+    console.log('Database connection successful');
+  })
+  .catch((err) => {
+    console.error('Database connection error');
+    console.log(err)
+  });
 
 app.listen(port, () => console.log('Node server started succesfully at port: ' + port));
 
@@ -40,7 +32,6 @@ app.use(cors({
 
 app.get('/', (req, res) => {
   console.log('GET request received at root');
-  console.log(dbConfig);
   res.send('Server OK, running at PORT: ' + port);
 })
 
